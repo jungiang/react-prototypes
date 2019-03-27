@@ -8,8 +8,9 @@ class Stopwatch extends React.Component{
         this.state = {
             status: 'stopped',
             start: null,
-            elapsed: 0
+            elapsed: 0,
         }
+        this.laps = [];
         this.update = this.update.bind(this);
     }
     start(){
@@ -43,7 +44,18 @@ class Stopwatch extends React.Component{
         })
     }
     lap(){
+        const {elapsed} = this.state;
         this.stop();
+        this.laps.push(<Time elapsed={elapsed}/>)
+        let lapsDiv = '';
+        for(let i = 0; i < this.laps.length; i++){
+            lapsDiv += this.laps[i];
+        }
+        return (
+            <div>
+                {lapsDiv}
+            </div>
+        )
     }
     render(){
         const {status, elapsed} = this.state;
@@ -58,7 +70,8 @@ class Stopwatch extends React.Component{
                 <button onClick={this.lap.bind(this)} className="btn btn-outline-success mx-3">Lap</button>
                 <hr className="my-5"/>
                 <h2>Laps</h2>
-                <Laps lap={<Time elapsed={elapsed}/>}/>
+                {this.lap}
+                {/* <Laps lap={<Time elapsed={elapsed}/>}/> */}
             </div>
         )
     }
