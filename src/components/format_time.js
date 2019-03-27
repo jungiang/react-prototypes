@@ -3,6 +3,13 @@ import React from 'react';
 class FormatTime extends React.Component{
     constructor(props){
         super(props);
+        this.timeStyle = {
+            display: 'inline-block',
+            position: 'relative',
+            left: '50%',
+            transform: 'translate(-50%)',
+            width: '383px'
+        }
     }
     millisecondsToTime(){
         const {elapsed} = this.props;
@@ -15,10 +22,18 @@ class FormatTime extends React.Component{
             ms: Math.floor(elapsed%100)
         }
     }
+    leadingZero(number){
+        number = number < 10 ? '0' + number : number;
+        return number;
+    }
+    trailingZero(number){
+        number = number < 10 ? number + '0' : number;
+        return number;
+    }
     render(){
-        const {hour, min , sec, ms} = this.millisecondsToTime();
+        let {hour, min , sec, ms} = this.millisecondsToTime();
         return (
-            <div>{hour}:{min}:{sec}:{ms}</div>
+            <div style={this.timeStyle}>{this.leadingZero(hour)}:{this.leadingZero(min)}:{this.leadingZero(sec)}.{this.trailingZero(ms)}</div>
         )
     }
 }

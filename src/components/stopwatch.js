@@ -1,5 +1,6 @@
 import React from 'react';
 import Time from './format_time';
+import Laps from './laps';
 
 class Stopwatch extends React.Component{
     constructor(props){
@@ -12,9 +13,11 @@ class Stopwatch extends React.Component{
         this.update = this.update.bind(this);
     }
     start(){
+        const {elapsed} = this.state;
+        const newStart = new Date().getTime() - elapsed;
         this.setState({
             status: 'running',
-            start: new Date().getTime()
+            start: newStart
         });
         setTimeout(this.update, 10);
     }
@@ -33,22 +36,29 @@ class Stopwatch extends React.Component{
         }
     }
     reset(){
-        const {status, start, elapsed} = this.state;
         this.setState({
             status: 'stopped',
             start: null,
             elapsed: 0
         })
     }
+    lap(){
+        this.stop();
+    }
     render(){
-        const {status, start, elapsed} = this.state;
+        const {status, elapsed} = this.state;
         return (
-            <div>
-                <h1><Time elapsed={elapsed}/></h1>
-                <p>{status}</p>
-                <button onClick={this.start.bind(this)}>Start</button>
-                <button onClick={this.stop.bind(this)}>Stop</button>
-                <button onClick={this.reset.bind(this)}>Reset</button>
+            <div className="jumbotron">
+                <h1 className="display-3"><Time elapsed={elapsed}/></h1>
+                <hr className="my-3"/>
+                <p className="lead text-center">{status}</p>
+                <button onClick={this.start.bind(this)} className="btn btn-outline-success mx-3">Start</button>
+                <button onClick={this.stop.bind(this)} className="btn btn-outline-danger mx-3">Stop</button>
+                <button onClick={this.reset.bind(this)} className="btn btn-outline-warning mx-3">Reset</button>
+                <button onClick={this.lap.bind(this)} className="btn btn-outline-success mx-3">Lap</button>
+                <hr className="my-5"/>
+                <h2>Laps</h2>
+                <Laps lap={<Time elapsed={elapsed}/>}/>
             </div>
         )
     }
