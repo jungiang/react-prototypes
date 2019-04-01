@@ -2,12 +2,13 @@ import React from 'react';
 
 class Laps extends React.Component{
     render(){
-        if(this.props.lap.props.elapsed === 0){
-            return null;
-        }
+        const {laps} = this.props;
+        const lapsElement = laps.map((item, index)=>{
+            return <div key={index}>{item}</div>
+        });
         return (
             <div className="laps">
-                {this.props.lap}
+                {lapsElement}
             </div>
         )
     }
