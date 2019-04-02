@@ -31,6 +31,17 @@ class ContactForm extends React.Component{
     handleSubmit(event){
         event.preventDefault();
         this.props.add(this.state.form);
+        this.reset();
+    }
+    reset(){
+        this.setState({
+            form: {
+                firstName: '',
+                lastName: '',
+                phone: '',
+                email: ''
+            }
+        })
     }
     render(){
         const {firstName, lastName, phone, email} = this.state.form;
@@ -41,6 +52,7 @@ class ContactForm extends React.Component{
                 <Field name="phone" label="Phone Number" type="tel" value={phone} onChange={this.handleInputChange}/>
                 <Field name="email" label="Email" type="email" value={email} onChange={this.handleInputChange}/>
                 <button>Add Contact</button>
+                <button type="button" onClick={this.reset.bind(this)}>Clear Form</button>
             </form>
         )
     }
