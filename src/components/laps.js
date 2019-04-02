@@ -10,16 +10,13 @@ class Laps extends React.Component{
         })
     }
     render(){
-        const {laps} = this.state;
-        const lapElements = laps.map((item, index)=>{
-
+        const {laps} = this.props;
+        const lapsElement = laps.map((item, index)=>{
+            return <div key={index}>{item}</div>
         });
-        if(this.state.laps === 0){
-            return null;
-        }
         return (
             <div className="laps">
-                {this.props.lap}
+                {lapsElement}
             </div>
         )
     }

@@ -16,10 +16,10 @@ class FormatTime extends React.Component{
         const sec = elapsed / 1000;
         const min = sec / 60;
         return {
-            hour: Math.floor(min/60),
-            min: Math.floor(min%60),
-            sec: Math.floor(sec%60),
-            ms: Math.floor(elapsed%100)
+            hour: this.leadingZero(Math.floor(min/60)),
+            min: this.leadingZero(Math.floor(min%60)),
+            sec: this.leadingZero(Math.floor(sec%60)),
+            ms: this.trailingZero(Math.floor(elapsed%100))
         }
     }
     leadingZero(number){
@@ -33,7 +33,7 @@ class FormatTime extends React.Component{
     render(){
         let {hour, min , sec, ms} = this.millisecondsToTime();
         return (
-            <div style={this.timeStyle}>{this.leadingZero(hour)}:{this.leadingZero(min)}:{this.leadingZero(sec)}.{this.trailingZero(ms)}</div>
+            <div style={this.timeStyle}>{hour}:{min}:{sec}.{ms}</div>
         )
     }
 }
