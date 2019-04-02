@@ -9,8 +9,8 @@ class Stopwatch extends React.Component{
             status: 'stopped',
             start: null,
             elapsed: 0,
+            laps: []
         }
-        this.laps = [];
         this.update = this.update.bind(this);
     }
     start(){
@@ -58,7 +58,7 @@ class Stopwatch extends React.Component{
         )
     }
     render(){
-        const {status, elapsed} = this.state;
+        const {status, elapsed, laps} = this.state;
         return (
             <div className="jumbotron">
                 <h1 className="display-3"><Time elapsed={elapsed}/></h1>
@@ -70,8 +70,7 @@ class Stopwatch extends React.Component{
                 <button onClick={this.lap.bind(this)} className="btn btn-outline-success mx-3">Lap</button>
                 <hr className="my-5"/>
                 <h2>Laps</h2>
-                {this.lap}
-                {/* <Laps lap={<Time elapsed={elapsed}/>}/> */}
+                <Laps lap={laps}/>
             </div>
         )
     }
